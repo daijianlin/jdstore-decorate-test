@@ -37,6 +37,8 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'figaro'
 gem 'fog-aws'
+gem 'carrierwave-qiniu'
+gem 'qiniu-rs'
 
 gem 'ransack'
 gem 'will_paginate'

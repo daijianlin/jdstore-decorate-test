@@ -1,27 +1,11 @@
-require 'carrierwave/storage/abstract'
-require 'carrierwave/storage/file'
-require 'carrierwave/storage/fog'
-
 CarrierWave.configure do |config|
-  if Rails.env.production?
-    config.fog_credentials = {
-      provider:              'AWS',
-      aws_access_key_id:     ENV["AWS_ACCESS_KEY_ID"],      # 你的 key
+  config.storage             = :qiniu
+  config.qiniu_access_key    = ENV["qiniu_access_key"]
+  config.qiniu_secret_key    = ENV["qiniu_secret_key"]
+  config.qiniu_bucket        = ENV["qiniu_bucket"]
+  config.qiniu_bucket_domain = ENV["qiniu_bucket_domain"]
+  config.qiniu_block_size    = 4*1024*1024
+  config.qiniu_protocol      = "http"
+  config.qiniu_up_host       = "http://up.qiniug.com"  #选择不同的区域时，"up.qiniug.com" 不同
 
-
-      aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],      # 你的 secret key
-
-
-      region:                'ap-northeast-1' # 你的 S3 bucket 的 Region 位置
-
-
-    }
-    config.storage :fog
-    config.fog_directory  = ENV["AWS_BUCKET_NAME"] # 你设定的 bucket name
-
-
-
-  else
-    config.storage :file
-  end
 end
